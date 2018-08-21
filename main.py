@@ -21,6 +21,8 @@ def getBox():
 
 def generate():
 	options = dlib.simple_object_detector_training_options()
+	options.add_left_right_image_flips = True
+	options.num_threads = 3
 	detector = dlib.train_simple_object_detector(image_list, boxes, options)
 	detector.save("detector/" + sys.argv[1])
 	
@@ -35,7 +37,7 @@ def test():
 		finalBoxes = []
 		for detectedBox in detectedBoxes:
 			(x,y,xb,yb) = [detectedBox.left(),detectedBox.top(),detectedBox.right(),detectedBox.bottom()]
-			finalBoxes.append((x,y,x + xb, y + yb))
+			finalBoxes.append((x,y,xb, yb))
 		image = cv2.cvtColor(image,cv2.COLOR_RGB2BGR)
 		for finalBox in finalBoxes:
 			(x,y,xb,yb) = finalBox
