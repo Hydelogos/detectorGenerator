@@ -21,10 +21,8 @@ def getBox():
 
 def generate():
 	options = dlib.simple_object_detector_training_options()
-	options.add_left_right_image_flips = True
-	options.C = 2
-	options.num_threads = 3
 	detector = dlib.train_simple_object_detector(image_list, boxes, options)
+	detector.save("detector/" + sys.argv[1])
 	
 
 def test():
